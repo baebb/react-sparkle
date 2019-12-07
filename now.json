@@ -1,0 +1,10 @@
+{
+    "github": {
+        "autoAlias": false,
+        "silent": true
+    },
+    "build": {
+        "env": {}
+    },
+    "env": {}
+}
