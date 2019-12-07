@@ -1,10 +1,12 @@
-/* eslint-disable */
+// NPM Dependencies
 const withCss = require('@zeit/next-css');
+const withSass = require('@zeit/next-sass');
+const withPlugins = require('next-compose-plugins');
 require('dotenv').config();
 
 const dev = process.env.NODE_ENV !== 'production';
 
-module.exports = withCss({
+module.exports = withPlugins([withCss, withSass], {
     webpack: (config, { isServer }) => {
         if (isServer) {
             const antStyles = /antd\/.*?\/style\/css.*?/;

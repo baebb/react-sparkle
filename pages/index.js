@@ -1,28 +1,59 @@
+// NPM Dependencies
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { loadData, startClock, tickClock } from '../actions'
-import Page from '../components/page'
+// UI Dependencies
+import { Layout, Menu, Breadcrumb } from 'antd';
+
+// Local Dependencies
+import { loadData, tickClock } from '../actions'
+
+const { Header, Content, Footer } = Layout;
 
 class Index extends React.Component {
-  static async getInitialProps(props) {
-    const { store, isServer } = props.ctx
-    store.dispatch(tickClock(isServer))
+    static async getInitialProps(props) {
+        const { store, isServer } = props.ctx;
+        store.dispatch(tickClock(isServer));
 
-    if (!store.getState().placeholderData) {
-      store.dispatch(loadData())
+        if (!store.getState().placeholderData) {
+            store.dispatch(loadData());
+        }
+
+        return { isServer };
     }
 
-    return { isServer }
-  }
+    componentDidMount() {
+        // this.props.dispatch(startClock());
+    }
 
-  componentDidMount() {
-    this.props.dispatch(startClock())
-  }
-
-  render() {
-    return <Page title="Index Page" linkTo="/other" NavigateTo="Other Page" />;
-  }
+    render() {
+        return (
+            <Layout className="layout">
+                <Header>
+                    <Menu
+                        theme="dark"
+                        mode="horizontal"
+                        defaultSelectedKeys={['2']}
+                        style={{ lineHeight: '64px' }}
+                    >
+                        <Menu.Item key="1">Home</Menu.Item>
+                        {/*<Menu.Item key="2">nav 2</Menu.Item>*/}
+                        {/*<Menu.Item key="3">nav 3</Menu.Item>*/}
+                    </Menu>
+                </Header>
+                <Content style={{ padding: '0 50px' }}>
+                    <div
+                        style={{ background: '#fff', padding: 24, marginTop: 32, minHeight: 280 }}
+                    >
+                        Test content and questions would go here
+                    </div>
+                </Content>
+                <Footer style={{ textAlign: 'center' }}>
+                    Sparkle ©2019 Created with ⚡ & ❤️️
+                </Footer>
+            </Layout>
+        );
+    }
 }
 
-export default connect()(Index)
+export default connect(state => state)(Index)

@@ -1,10 +1,13 @@
+// NPM Dependencies
 import App from 'next/app'
 import React from 'react'
 import { Provider } from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import withReduxSaga from 'next-redux-saga'
 
-import createStore from '../store'
+// Local Dependencies
+import '../style.scss'
+import createStore from '../store';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
