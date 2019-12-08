@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 // UI Dependencies
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu  } from 'antd';
 
 // Local Dependencies
 import { loadData, tickClock } from '../actions'
