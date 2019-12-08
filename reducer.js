@@ -4,7 +4,8 @@ import { actionTypes } from './actions'
 export const exampleInitialState = {
     error: false,
     correctQuestions: [],
-    invoiceStatus: {}
+    invoiceStatus: {},
+    fundedQuiz: {}
 };
 
 function reducer(state = exampleInitialState, action) {
@@ -26,6 +27,12 @@ function reducer(state = exampleInitialState, action) {
             return {
                 ...state,
                 invoiceStatus: { ...state.invoiceStatus, ...action.data }
+            };
+
+        case actionTypes.REPLACE_FUNDED_QUIZ:
+            return {
+                ...state,
+                fundedQuiz: action.data
             };
 
         default:

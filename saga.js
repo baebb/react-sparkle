@@ -1,5 +1,5 @@
 // NPM Dependencies
-import { all, call, delay, put, take, takeLatest, fork, cancel, cancelled, race } from 'redux-saga/effects';
+import { all, call, delay, put, take, takeLatest, fork, select, race } from 'redux-saga/effects';
 import es6promise from 'es6-promise';
 import 'isomorphic-unfetch';
 import axios from 'axios';
@@ -11,7 +11,9 @@ import {
     failure,
     replaceInvoiceStatus,
     startRealtimeInvoiceStatus,
-    stopRealtimeInvoiceStatus
+    stopRealtimeInvoiceStatus,
+    createFundedQuiz,
+    replaceFundedQuiz
 } from './actions'
 
 function* createInvoiceSaga({ payload }) {
@@ -28,8 +30,6 @@ function* createInvoiceSaga({ payload }) {
 
         yield put(replaceInvoiceStatus({ ...data, quizId }));
 
-        console.log('data', data);
-
         yield put(startRealtimeInvoiceStatus({ chargeId: data.chargeId }));
         // yield put(startRealtimeInvoiceStatus({ orderId: data.orderId }));
     } catch (err) {
@@ -38,7 +38,7 @@ function* createInvoiceSaga({ payload }) {
     }
 }
 
-export function* startRealTimeCheckInvoiceStatusOnRequest(payload) {
+export function* startRealTimeCheckInvoiceStatusOnRequest({ payload }) {
     while (true) {
         try {
             const { chargeId } = payload;
@@ -50,6 +50,7 @@ export function* startRealTimeCheckInvoiceStatusOnRequest(payload) {
             yield put(replaceInvoiceStatus(data));
 
             if (data.status === 'paid') {
+                yield put(createFundedQuiz(data));
                 yield put(stopRealtimeInvoiceStatus());
             }
 
@@ -68,14 +69,52 @@ function* startRealtimeInvoiceStatusSaga() {
         const req = yield take(actionTypes.START_RT_CHECK_INVOICE_STATUS);
 
         yield race([
-            call(startRealTimeCheckInvoiceStatusOnRequest, req.payload),
+            call(startRealTimeCheckInvoiceStatusOnRequest, req),
             take(actionTypes.STOP_RT_CHECK_INVOICE_STATUS)
         ]);
     }
 }
 
+function* createNewFundedQuizSaga() {
+    try {
+        const invoiceStatus = yield select(state => state.invoiceStatus);
+        console.log('invoiceStatus', invoiceStatus);
+        const { quizId, orderId, amount } = invoiceStatus;
+
+        const response = yield call(
+            axios,
+            {
+                method: 'post',
+                url: `http://138.68.239.62/fundedquiz/`,
+                data: {
+                    quiz: quizId,
+                    complete: false,
+                    percent_correct: "0",
+                    amount,
+                    lightning_gift_order_id: orderId,
+                    redeemed: false
+                },
+                auth: {
+                    username: 'guest',
+                    password: 'boltathon'
+                }
+            });
+
+        const data = response.data;
+
+        console.log('rewe', data);
+        yield put(replaceFundedQuiz(data));
+    } catch (err) {
+        console.log('err', err);
+        yield put(failure(err));
+    }
+}
+
+// function*
+
 function* rootSaga() {
     yield all([
+        takeLatest(actionTypes.CREATE_FUNDED_QUIZ, createNewFundedQuizSaga),
         takeLatest(actionTypes.CREATE_INVOICE, createInvoiceSaga),
         fork(startRealtimeInvoiceStatusSaga),
     ])

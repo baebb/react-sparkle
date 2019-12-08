@@ -1,11 +1,13 @@
 // NPM Dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import QRCode from 'qrcode.react';
 
 // UI Dependencies
 import { Typography, Form, Input, Button, Spin } from 'antd';
 
 // Local Dependencies
+import InputCopyButton from './input-copy-button';
 import { createInvoice } from '../actions';
 
 const { Title, Text } = Typography;
@@ -18,6 +20,16 @@ class CreateQuizFrom extends Component {
             loading: false
         };
     }
+
+    componentDidUpdate = (prevProps) => {
+        const { invoiceStatus } = this.props;
+
+        if (invoiceStatus !== prevProps.invoiceStatus) {
+            this.setState({
+                loading: false
+            });
+        }
+    };
 
     handleSubmit = e => {
         e.preventDefault();
@@ -64,7 +76,7 @@ class CreateQuizFrom extends Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
-        const { quizId, quizName } = this.props;
+        const { quizId, quizName, invoiceStatus } = this.props;
         const { loading } = this.state;
 
         if (loading) {
@@ -73,6 +85,38 @@ class CreateQuizFrom extends Component {
                     <Spin tip="loading..." size="large" />
                 </div>
             );
+        }
+
+        if (Object.keys(invoiceStatus).length !== 0) {
+            const {
+                lightningInvoice, status, orderId
+            } = invoiceStatus;
+
+            if (status === 'paid') {
+                return (
+                    <div style={{ textAlign: 'center' }}>
+                        <p style={{ marginBottom: 20 }}>
+                            <Emoji label="confeti" symbol="🎊️" /> <b>Payment received!</b> <Emoji label="confeti" symbol="🎊️" />
+                        </p>
+                    </div>
+                );
+            }
+
+            return (
+                <div style={{ textAlign: 'center' }}>
+                    <p>Pay invoice with a Lightning compatible wallet to complete your quiz</p>
+                    <a href={`lightning:${lightningInvoice.payreq}`}>
+                        <QRCode
+                            value={lightningInvoice.payreq}
+                            size={128}
+                            style={{ marginBottom: 12 }}
+                            renderAs="svg"
+                        />
+                    </a>
+                    <InputCopyButton text={lightningInvoice.payreq} />
+                </div>
+            );
+
         }
 
         return (

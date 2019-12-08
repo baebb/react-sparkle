@@ -20,7 +20,7 @@ const BaseLayout = ({
         >
             <Header theme="light">
                 <div className="logo">
-                    <img src="../sparkle_logo_grn.png" width={120} />
+                    <img src="../sparkleslap_logo.png" width={160} />
                 </div>
             </Header>
             <Content style={{ padding: '0 50px' }}>

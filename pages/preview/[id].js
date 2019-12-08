@@ -64,7 +64,7 @@ class PreviewPage extends React.Component {
             return (
                 <Row type="flex" justify="start" className="base-layout__row">
                     <BaseLayout columns={24} className="quiz-page">
-                        <div style={{ background: '#fff', padding: 24, marginTop: 32, height: '100%' }}>
+                        <div style={{ background: '#fff', padding: 48, marginTop: 32, height: '100%' }}>
                             <div style={{ textAlign: 'center' }}>
                                 <Title>404 Quiz not found</Title>
                             </div>

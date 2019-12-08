@@ -2,7 +2,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import fetch from 'isomorphic-unfetch';
-import axios from 'axios';
 
 // UI Dependencies
 import { Typography, Row, Button } from 'antd';
@@ -62,7 +61,7 @@ class QuizPage extends React.Component {
             return (
                 <Row type="flex" justify="start" className="base-layout__row">
                     <BaseLayout columns={24} className="quiz-page">
-                        <div style={{ background: '#fff', padding: 24, marginTop: 32, height: '100%' }}>
+                        <div style={{ background: '#fff', padding: 48, marginTop: 32, height: '100%' }}>
                             <div style={{ textAlign: 'center' }}>
                                 <Title>404 Quiz not found</Title>
                             </div>

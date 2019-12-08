@@ -5,7 +5,9 @@ export const actionTypes = {
     CREATE_INVOICE: 'CREATE_INVOICE',
     REPLACE_INVOICE_STATUS: 'REPLACE_INVOICE_STATUS',
     START_RT_CHECK_INVOICE_STATUS: 'START_RT_CHECK_INVOICE_STATUS',
-    STOP_RT_CHECK_INVOICE_STATUS: 'STOP_RT_CHECK_INVOICE_STATUS'
+    STOP_RT_CHECK_INVOICE_STATUS: 'STOP_RT_CHECK_INVOICE_STATUS',
+    CREATE_FUNDED_QUIZ: 'CREATE_FUNDED_QUIZ',
+    REPLACE_FUNDED_QUIZ: 'REPLACE_FUNDED_QUIZ'
 };
 
 export function startRealtimeInvoiceStatus(data) {
@@ -31,6 +33,20 @@ export function createInvoice(data) {
 export function replaceInvoiceStatus(data) {
     return {
         type: actionTypes.REPLACE_INVOICE_STATUS,
+        data
+    };
+}
+
+export function createFundedQuiz(data) {
+    return {
+        type: actionTypes.CREATE_FUNDED_QUIZ,
+        payload: data
+    };
+}
+
+export function replaceFundedQuiz(data) {
+    return {
+        type: actionTypes.REPLACE_FUNDED_QUIZ,
         data
     };
 }
