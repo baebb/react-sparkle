@@ -18,3 +18,10 @@
     float: left;
 }
 
+.answer-radio {
+    .ant-radio {
+        position: relative;
+        top: -2px;
+    }
+}
+

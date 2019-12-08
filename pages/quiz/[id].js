@@ -63,25 +63,21 @@ class QuizPage extends React.Component {
         return (
             <Row type="flex" justify="start" className="base-layout__row">
                 <BaseLayout columns={24} className="quiz-page">
-                    <div
-                        style={{ background: '#fff', padding: 24, marginTop: 32, height: '100%' }}
-                    >
+                    <div style={{ background: '#fff', padding: 24, marginTop: 32, height: '100%' }}>
                         <div style={{ textAlign: 'center', marginBottom: 40 }}>
                             <Title>{name}</Title>
                             <Text>In this quiz you will learn how to:</Text>
                             <Title level={4} style={{ marginTop: 12 }}>{description}</Title>
                             <Text type="secondary">{questionCount} questions</Text>
                         </div>
-                        <div>
-                            {sortedQuestions.map(question =>
-                                <Question
-                                    questionData={question}
-                                    key={question.order}
-                                    preview={false}
-                                />
-                            )}
-                        </div>
                     </div>
+                    {sortedQuestions.map(question =>
+                        <Question
+                            questionData={question}
+                            key={question.order}
+                            preview={false}
+                        />
+                    )}
                 </BaseLayout>
             </Row>
         );

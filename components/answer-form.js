@@ -10,8 +10,9 @@ import { addCorrectQuestion } from '../actions';
 
 const radioStyle = {
     display: 'block',
-    height: '30px',
     lineHeight: '30px',
+    fontSize: '18px',
+    marginBottom: '8px'
 };
 
 class AnswerForm extends Component {
@@ -49,9 +50,9 @@ class AnswerForm extends Component {
                     {getFieldDecorator('answer', {
                         rules: [{ required: true, message: 'Select your answer before continuing' }],
                     })(
-                        <Radio.Group>
+                        <Radio.Group size="large">
                             {answers.map(({ content }) =>
-                                <Radio style={radioStyle} key={content} value={content}>
+                                <Radio style={radioStyle} className="answer-radio" key={content} value={content}>
                                     {content}
                                 </Radio>
                             )}

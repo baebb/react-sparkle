@@ -34,11 +34,13 @@ const Question = ({ questionData, preview, correctQuestions }) => {
                 <Col span={8}>
                     <div style={{ marginTop: 112 }}>
                         <>
-                            <Title level={4}>{question_text}</Title>
+                            <Title level={4} style={{ marginBottom: 24 }}>{question_text}</Title>
                             {isCorrect ?
                                 <>
-                                    <Title level={4}>{correctAnswer}</Title>
-                                    <Alert message="You answered correctly!" type="success" />
+                                    <Title level={4} style={{ marginTop: 24, marginBottom: 32 }}>
+                                        ✅&nbsp;&nbsp;{correctAnswer}
+                                    </Title>
+                                    <Alert message="Nice work! You answered correctly" type="success" />
                                 </>
                                 :
                                 <AnswerForm
