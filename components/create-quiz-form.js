@@ -96,7 +96,7 @@ class CreateQuizFrom extends Component {
                 return (
                     <div style={{ textAlign: 'center' }}>
                         <p style={{ marginBottom: 20 }}>
-                            <Emoji label="confeti" symbol="🎊️" /> <b>Payment received!</b> <Emoji label="confeti" symbol="🎊️" />
+                            🎊 <b>Payment received!</b> 🎊
                         </p>
                     </div>
                 );

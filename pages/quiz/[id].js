@@ -28,9 +28,6 @@ class QuizPage extends React.Component {
         if (quiz.ok) {
             const quizTemplate = await fetch(`http://138.68.239.62/quiz/${quizData.quiz}`);
             quizTemplateData = quizTemplate.ok ? await quizTemplate.json() : {};
-
-            // const gift = await fetch(`https://api.lightning.gifts/gift//${quizData.lightning_gift_order_id}`);
-            // giftData = gift.ok ? await gift.json() : {};
         }
         return {
             quizData,
@@ -43,16 +40,6 @@ class QuizPage extends React.Component {
     componentDidMount() {
         this.props.dispatch(resetCorrectQuestions());
     }
-
-    // getGiftData() {
-    //     const { lightning_gift_order_id } = this.props.quizData;
-    //
-    //
-    // }
-
-    updateQuiz() {
-
-    };
 
     render() {
         const { quizData, quizTemplateData, correctQuestions } = this.props;
