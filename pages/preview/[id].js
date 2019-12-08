@@ -4,11 +4,15 @@ import { connect } from 'react-redux';
 import fetch from 'isomorphic-unfetch';
 
 // UI Dependencies
-import { Typography, Row, Modal, Button } from 'antd';
+import { Typography, Row, Modal, Button, Col } from 'antd';
 
 // Component Dependencies
-import BaseLayout from "../../components/base-layout";
-import Question from "../../components/question";
+import BaseLayout from '../../components/base-layout';
+import Question from '../../components/question';
+import CreateQuizFrom from '../../components/create-quiz-form'
+
+// Local Dependencies
+import { createInvoice } from '../../actions';
 
 const { Title, Text } = Typography;
 
@@ -38,6 +42,19 @@ class PreviewPage extends React.Component {
         // this.props.dispatch(startClock());
     }
 
+    createNewQuiz({ amount, senderName }) {
+        console.log(amount, senderName);
+
+        // axios.post('https://api.lightning.gifts/create', {
+        //     amount,
+        //     senderName
+        // })
+        //     .then(response => {
+        //         console.log('response.data', response.data);
+        //     })
+        //     .catch(error => console.log(error));
+    }
+
     render() {
         const { quizData } = this.props;
         const { showModal } = this.state;
@@ -57,7 +74,7 @@ class PreviewPage extends React.Component {
             );
         }
 
-        const { name, description, questions } = quizData;
+        const { name, description, questions, id } = quizData;
         const questionCount = questions.length;
         const sortedQuestions = questions.sort((a, b) => Number(a.order) - Number(b.order));
 
@@ -90,13 +107,20 @@ class PreviewPage extends React.Component {
                     )}
                 </BaseLayout>
                 <Modal
-                    title="Create Sparkle Quiz from this template"
                     visible={showModal}
                     onCancel={() => this.setState({ showModal: false })}
                     footer={null}
                     maskClosable={false}
                 >
-                    test
+                    <Row type="flex" align="middle" style={{ minHeight: 300 }}>
+                        <Col span={16} offset={4}>
+                            <CreateQuizFrom
+                                quizId={id}
+                                quizName={name}
+                                createQuiz={this.createNewQuiz}
+                            />
+                        </Col>
+                    </Row>
                 </Modal>
             </Row>
         );
