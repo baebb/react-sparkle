@@ -22,6 +22,7 @@
     "null-loader": "^3.0.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-player": "^1.14.2",
     "react-redux": "5.0.7",
     "redux": "4.0.1",
     "redux-saga": "1.0.1"

@@ -28,8 +28,8 @@ function* loadDataSaga() {
 
 function* rootSaga() {
   yield all([
-    call(runClockSaga),
-    takeLatest(actionTypes.LOAD_DATA, loadDataSaga),
+    // call(runClockSaga),
+    // takeLatest(actionTypes.LOAD_DATA, loadDataSaga),
   ])
 }
 

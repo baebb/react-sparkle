@@ -8,8 +8,9 @@ import { Typography, Row } from 'antd';
 
 // Component Dependencies
 import BaseLayout from "../../components/base-layout";
+import Question from "../../components/question";
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 class QuizPage extends React.Component {
     static async getInitialProps(props) {
@@ -51,19 +52,27 @@ class QuizPage extends React.Component {
             );
         }
 
+        const { name, description, questions } = quizData;
+        const questionCount = questions.length;
+        const sortedQuestions = questions.sort((a, b) => Number(a.order) - Number(b.order));
+
         return (
             <Row type="flex" justify="start" className="base-layout__row">
                 <BaseLayout columns={24} className="quiz-page">
                     <div
                         style={{ background: '#fff', padding: 24, marginTop: 32, height: '100%' }}
                     >
-                        <div style={{ textAlign: 'center' }}>
-                            <Title>{quizData.name}</Title>
-                            <Title level={4}>{quizData.description}</Title>
+                        <div style={{ textAlign: 'center', marginBottom: 40 }}>
+                            <Title>{name}</Title>
+                            <Text>In this quiz you will learn how to:</Text>
+                            <Title level={4} style={{ marginTop: 12 }}>{description}</Title>
+                            <Text type="secondary">{questionCount} questions</Text>
                         </div>
-                        {quizData.questions.map = ({ youtube_url, question_text, answer }) => (
-                            <div></div>
-                        )}
+                        <div>
+                            {sortedQuestions.map(question =>
+                                <Question questionData={question} key={question.order} />
+                            )}
+                        </div>
                     </div>
                 </BaseLayout>
             </Row>
