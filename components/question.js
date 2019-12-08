@@ -17,7 +17,7 @@ const Question = ({ questionData, preview, correctQuestions }) => {
     const isCorrect = correctQuestions.some(question => question === order);
 
     return (
-        <div className="question-item" style={{ background: '#fff', padding: 24, marginTop: 32 }}>
+        <div className="question-item" style={{ background: '#fff', padding: 48, marginTop: 32 }}>
             <Row>
                 <Col span={16}>
                     <Title level={2}>Question {order}</Title>

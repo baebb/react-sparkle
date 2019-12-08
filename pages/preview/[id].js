@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import fetch from 'isomorphic-unfetch';
 
 // UI Dependencies
-import { Typography, Row } from 'antd';
+import { Typography, Row, Modal, Button } from 'antd';
 
 // Component Dependencies
 import BaseLayout from "../../components/base-layout";
@@ -26,12 +26,22 @@ class PreviewPage extends React.Component {
         };
     }
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showModal: false
+        };
+    }
+
     componentDidMount() {
         // this.props.dispatch(startClock());
     }
 
     render() {
         const { quizData } = this.props;
+        const { showModal } = this.state;
+
 
         if (quizData === 'NOT_FOUND') {
             return (
@@ -54,12 +64,21 @@ class PreviewPage extends React.Component {
         return (
             <Row type="flex" justify="start" className="base-layout__row">
                 <BaseLayout columns={24} className="quiz-page">
-                    <div style={{ background: '#fff', padding: 24, marginTop: 32 }}>
-                        <div style={{ textAlign: 'center', marginBottom: 40 }}>
-                            <Title>{name} (preview)</Title>
-                            <Text>In this quiz you will learn how to:</Text>
-                            <Title level={4} style={{ marginTop: 12 }}>{description}</Title>
+                    <div style={{ background: '#fff', padding: 48, marginTop: 32 }}>
+                        <div style={{ textAlign: 'center' }}>
+                            <Title style={{ marginBottom: 40 }}>{name}</Title>
+                            <Text>In this quiz you will learn about:</Text>
+                            <Title level={3} style={{ marginTop: 12 }}>{description}</Title>
                             <Text type="secondary">{questionCount} questions</Text>
+                            <div style={{ marginTop: 32 }}>
+                                <Button
+                                    type="primary"
+                                    shape="round"
+                                    onClick={() => this.setState({ showModal: true })}
+                                >
+                                    Make a sharable quiz from this template
+                                </Button>
+                            </div>
                         </div>
                     </div>
                     {sortedQuestions.map(question =>
@@ -70,6 +89,15 @@ class PreviewPage extends React.Component {
                         />
                     )}
                 </BaseLayout>
+                <Modal
+                    title="Create Sparkle Quiz from this template"
+                    visible={showModal}
+                    onCancel={() => this.setState({ showModal: false })}
+                    footer={null}
+                    maskClosable={false}
+                >
+                    test
+                </Modal>
             </Row>
         );
     }

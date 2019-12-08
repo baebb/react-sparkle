@@ -80,7 +80,7 @@ class QuizPage extends React.Component {
         return (
             <Row type="flex" justify="start" className="base-layout__row">
                 <BaseLayout columns={24} className="quiz-page">
-                    <div style={{ background: '#fff', padding: 24, marginTop: 32 }}>
+                    <div style={{ background: '#fff', padding: 48, marginTop: 32 }}>
                         <div style={{ textAlign: 'center', marginBottom: 40 }}>
                             <Title>{name}</Title>
                             <Text>In this quiz you will learn how to:</Text>
@@ -96,7 +96,7 @@ class QuizPage extends React.Component {
                         />
                     )}
                     {allQuestionsCorrect &&
-                        <div style={{ background: '#fff', padding: 24, marginTop: 32 }}>
+                        <div style={{ background: '#fff', padding: 48, marginTop: 32 }}>
                             <div style={{ textAlign: 'center', marginBottom: 40, marginTop: 40  }}>
                                 <Title>🎉 You did it! 🎉</Title>
                                 <Title level={4} style={{ marginBottom: 40}}>
