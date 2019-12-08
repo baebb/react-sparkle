@@ -93,17 +93,25 @@ class CreateQuizFrom extends Component {
             } = invoiceStatus;
 
             if (status === 'paid') {
+                if (Object.keys(fundedQuiz).length !== 0) {
+                    return (
+                        <div style={{ textAlign: 'center' }}>
+                            <p style={{ marginBottom: 20 }}>
+                                🎊 <b>Payment received!</b> 🎊
+                            </p>
+                            <p style={{ marginBottom: 20 }}>
+                                <b>Your personal quiz link is below</b> 👇
+                            </p>
+                            <p style={{ marginBottom: 20 }}>
+                                <InputCopyButton text={`https://react-sparkle.now.sh/quiz/${fundedQuiz.id}`} />
+                            </p>
+                        </div>
+                    );
+                }
+
                 return (
                     <div style={{ textAlign: 'center' }}>
-                        <p style={{ marginBottom: 20 }}>
-                            🎊 <b>Payment received!</b> 🎊
-                        </p>
-                        <p style={{ marginBottom: 20 }}>
-                            <b>Your personal quiz link is below</b> 👇
-                        </p>
-                        <p style={{ marginBottom: 20 }}>
-                            <InputCopyButton text={`https://react-sparkle.now.sh/quiz/${fundedQuiz.id}`} />
-                        </p>
+                        <Spin tip="loading..." size="large" />
                     </div>
                 );
             }

@@ -32,8 +32,6 @@ class Index extends React.Component {
     render() {
         const { quizes } = this.props;
 
-        console.log('quizes', quizes);
-
         return (
             <Row type="flex" justify="start" className="base-layout__row">
                 <BaseLayout columns={24} className="quiz-page">
@@ -46,8 +44,8 @@ class Index extends React.Component {
                                 <Text strong>Get started with one of our templates:</Text>
                             </div>
                             {quizes.map(quiz =>
-                                <a key={quiz.id} href={`https://react-sparkle.now.sh/quiz/${quiz.id}`}>
-                                    <Title level={4}>{quiz.title}</Title>
+                                <a key={quiz.id} href={`/preview/${quiz.id}`}>
+                                    <a><Title level={4}>{quiz.title}</Title></a>
                                 </a>
                             )}
                         </div>
