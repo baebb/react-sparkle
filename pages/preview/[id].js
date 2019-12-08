@@ -56,7 +56,7 @@ class PreviewPage extends React.Component {
     }
 
     render() {
-        const { quizData,  } = this.props;
+        const { quizData, fundedQuiz } = this.props;
         const { showModal } = this.state;
 
 
@@ -127,4 +127,5 @@ class PreviewPage extends React.Component {
     }
 }
 
+const mapStateToProps = ({ fundedQuiz }) => ({ fundedQuiz });
 export default connect(state => state)(PreviewPage)

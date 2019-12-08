@@ -76,7 +76,7 @@ class CreateQuizFrom extends Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
-        const { quizId, quizName, invoiceStatus } = this.props;
+        const { quizId, quizName, invoiceStatus, fundedQuiz } = this.props;
         const { loading } = this.state;
 
         if (loading) {
@@ -97,6 +97,12 @@ class CreateQuizFrom extends Component {
                     <div style={{ textAlign: 'center' }}>
                         <p style={{ marginBottom: 20 }}>
                             🎊 <b>Payment received!</b> 🎊
+                        </p>
+                        <p style={{ marginBottom: 20 }}>
+                            <b>Your personal quiz link is below</b> 👇
+                        </p>
+                        <p style={{ marginBottom: 20 }}>
+                            <InputCopyButton text={`https://react-sparkle.now.sh/quiz/${fundedQuiz.id}`} />
                         </p>
                     </div>
                 );
@@ -176,5 +182,5 @@ class CreateQuizFrom extends Component {
 
 const WrappedCreateQuizFrom = Form.create()(CreateQuizFrom);
 
-const mapStateToProps = ({ invoiceStatus }) => ({ invoiceStatus });
+const mapStateToProps = ({ invoiceStatus, fundedQuiz }) => ({ invoiceStatus, fundedQuiz });
 export default connect(mapStateToProps)(WrappedCreateQuizFrom);
