@@ -44,9 +44,11 @@ class Index extends React.Component {
                                 <Text strong>Get started with one of our templates:</Text>
                             </div>
                             {quizes.map(quiz =>
-                                <a key={quiz.id} href={`/preview/${quiz.id}`}>
-                                    <a><Title level={4}>{quiz.title}</Title></a>
-                                </a>
+                                <div>
+                                    <Link key={quiz.id} href={`/preview/${quiz.id}`}>
+                                        <a>{quiz.name}</a>
+                                    </Link>
+                                </div>
                             )}
                         </div>
                     </div>
