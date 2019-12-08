@@ -3,22 +3,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 // UI Dependencies
-import { Layout, Menu, Row } from 'antd';
+import { Layout, Row } from 'antd';
 
 // Local Dependencies
-import { loadData, tickClock } from '../actions'
 import BaseLayout from "../components/base-layout";
-
-const { Header, Content, Footer } = Layout;
 
 class Index extends React.Component {
     static async getInitialProps(props) {
-        const { store, isServer } = props.ctx;
-        store.dispatch(tickClock(isServer));
-
-        if (!store.getState().placeholderData) {
-            store.dispatch(loadData());
-        }
+        const { isServer } = props.ctx;
 
         return { isServer };
     }
