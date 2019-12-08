@@ -61,7 +61,7 @@ class AnswerForm extends Component {
                 </Form.Item>
                 {!preview &&
                     <Form.Item>
-                        <Button type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit" shape="round">
                             Check your answer
                         </Button>
                     </Form.Item>
