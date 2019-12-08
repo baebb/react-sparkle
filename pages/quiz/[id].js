@@ -20,11 +20,17 @@ class QuizPage extends React.Component {
         const { query, isServer } = props.ctx;
         const { id = null } = query;
 
-        const res = await fetch(`http://138.68.239.62/quiz/${id}`);
-        const quizData = res.ok ? await res.json() : 'NOT_FOUND';
+        const quiz = await fetch(`http://138.68.239.62/fundedquiz/${id}`);
+        const quizData = quiz.ok ? await quiz.json() : 'NOT_FOUND';
+        let quizTemplateData = {};
+        if (quiz.ok) {
+            const quizTemplate = await fetch(`http://138.68.239.62/quiz/${quizData.quiz}`);
+            quizTemplateData = quizTemplate.ok ? await quizTemplate.json() : {};
+        }
 
         return {
             quizData,
+            quizTemplateData,
             isServer
         };
     }
@@ -34,7 +40,7 @@ class QuizPage extends React.Component {
     }
 
     render() {
-        const { quizData } = this.props;
+        const { quizData, quizTemplateData } = this.props;
 
         if (quizData === 'NOT_FOUND') {
             return (
@@ -50,7 +56,7 @@ class QuizPage extends React.Component {
             );
         }
 
-        const { name, description, questions } = quizData;
+        const { name, description, questions } = quizTemplateData;
         const questionCount = questions.length;
         const sortedQuestions = questions.sort((a, b) => Number(a.order) - Number(b.order));
 
