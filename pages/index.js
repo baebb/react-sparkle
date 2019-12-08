@@ -30,8 +30,14 @@ class Index extends React.Component {
         return (
             <Layout className="layout">
                 <Header>
+                    <div className="logo">
+                        <img
+                            src="./sparkle_logo_grn.png"
+                            width={120}
+                        />
+                    </div>
                     <Menu
-                        theme="dark"
+                        theme="light"
                         mode="horizontal"
                         defaultSelectedKeys={['2']}
                         style={{ lineHeight: '64px' }}
