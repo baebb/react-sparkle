@@ -56,7 +56,7 @@ class PreviewPage extends React.Component {
     }
 
     render() {
-        const { quizData } = this.props;
+        const { quizData,  } = this.props;
         const { showModal } = this.state;
 
 

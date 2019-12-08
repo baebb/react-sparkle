@@ -46,9 +46,9 @@ class Index extends React.Component {
                                 <Text strong>Get started with one of our templates:</Text>
                             </div>
                             {quizes.map(quiz =>
-                                <Link key={quiz.id} href={`https://react-sparkle.now.sh/quiz/${quiz.id}`}>
+                                <a key={quiz.id} href={`https://react-sparkle.now.sh/quiz/${quiz.id}`}>
                                     <Title level={4}>{quiz.title}</Title>
-                                </Link>
+                                </a>
                             )}
                         </div>
                     </div>
