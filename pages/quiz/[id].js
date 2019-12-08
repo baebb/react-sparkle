@@ -10,17 +10,15 @@ import { Typography, Row } from 'antd';
 import BaseLayout from "../../components/base-layout";
 import Question from "../../components/question";
 
+// Local Dependencies
+import { resetCorrectQuestions } from '../../actions';
+
 const { Title, Text } = Typography;
 
 class QuizPage extends React.Component {
     static async getInitialProps(props) {
         const { query, isServer } = props.ctx;
         const { id = null } = query;
-        // store.dispatch(tickClock(isServer));
-        //
-        // if (!store.getState().placeholderData) {
-        //     store.dispatch(loadData());
-        // }
 
         const res = await fetch(`http://138.68.239.62/quiz/${id}`);
         const quizData = res.ok ? await res.json() : 'NOT_FOUND';
@@ -32,7 +30,7 @@ class QuizPage extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.dispatch(startClock());
+        this.props.dispatch(resetCorrectQuestions());
     }
 
     render() {

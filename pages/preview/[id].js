@@ -12,15 +12,10 @@ import Question from "../../components/question";
 
 const { Title, Text } = Typography;
 
-class QuizPage extends React.Component {
+class PreviewPage extends React.Component {
     static async getInitialProps(props) {
         const { query, isServer } = props.ctx;
         const { id = null } = query;
-        // store.dispatch(tickClock(isServer));
-        //
-        // if (!store.getState().placeholderData) {
-        //     store.dispatch(loadData());
-        // }
 
         const res = await fetch(`http://138.68.239.62/quiz/${id}`);
         const quizData = res.ok ? await res.json() : 'NOT_FOUND';
@@ -80,4 +75,4 @@ class QuizPage extends React.Component {
     }
 }
 
-export default connect(state => state)(QuizPage)
+export default connect(state => state)(PreviewPage)

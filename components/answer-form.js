@@ -1,8 +1,12 @@
 // NPM Dependencies
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 // UI Dependencies
 import { Form, Radio, Button } from 'antd';
+
+// Local Dependencies
+import { addCorrectQuestion } from '../actions';
 
 const radioStyle = {
     display: 'block',
@@ -21,7 +25,7 @@ class AnswerForm extends Component {
     };
 
     checkAnswer = ({ answer }) => {
-        const { answers } = this.props;
+        const { answers, questionOrder } = this.props;
         const correctAnswer = answers.find(answer => answer.correct).content;
 
         if (answer !== correctAnswer) {
@@ -31,7 +35,7 @@ class AnswerForm extends Component {
                 }
             });
         } else {
-
+            this.props.dispatch(addCorrectQuestion(questionOrder));
         }
     };
 
@@ -68,4 +72,4 @@ class AnswerForm extends Component {
 
 const WrappedAnswerForm = Form.create()(AnswerForm);
 
-export default WrappedAnswerForm;
+export default connect()(WrappedAnswerForm);

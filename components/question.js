@@ -1,6 +1,7 @@
 // NPM Dependencies
 import React from 'react';
 import ReactPlayer from 'react-player';
+import { connect } from 'react-redux';
 
 // UI Dependencies
 import { Typography, Row, Col } from 'antd';
@@ -10,11 +11,9 @@ import AnswerForm from './answer-form';
 
 const { Title, Text } = Typography;
 
-const Question = ({ questionData, preview }) => {
+const Question = ({ questionData, preview, correctQuestions }) => {
     const { youtube_url, question_text, answers, order } = questionData;
-
-    const correctAnswer = () => {
-    };
+    const isCorrect = correctQuestions.some(question => question === order);
 
     return (
         <div className="question-item" style={{ background: '#fff', padding: 24, marginTop: 32 }}>
@@ -33,12 +32,19 @@ const Question = ({ questionData, preview }) => {
                 </Col>
                 <Col span={8}>
                     <div style={{ marginTop: 48 }}>
-                        <Title level={4}>{question_text}</Title>
-                        <AnswerForm
-                            answers={answers}
-                            preview={preview}
-                            correctAnswer={correctAnswer}
-                        />
+                        {isCorrect ?
+                            <div>correct</div>
+                            :
+                            <>
+                                <Title level={4}>{question_text}</Title>
+                                <AnswerForm
+                                    answers={answers}
+                                    preview={preview}
+                                    questionOrder={order}
+                                />
+                            </>
+                        }
+
                     </div>
                 </Col>
             </Row>
@@ -46,4 +52,5 @@ const Question = ({ questionData, preview }) => {
     )
 };
 
-export default Question
+const mapStateToProps = ({ correctQuestions }) => ({ correctQuestions });
+export default connect(mapStateToProps)(Question);
